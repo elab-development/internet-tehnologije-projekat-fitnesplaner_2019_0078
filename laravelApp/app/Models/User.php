@@ -18,9 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'password', 'height', 'weight', 'gender', 'date_of_birth', 'fitness_goals', 'notes',
     ];
 
     /**
@@ -41,4 +39,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+ 
+    public function calculateBMI()
+    {
+        if ($this->height && $this->weight) {
+            $heightInMeters = $this->height / 100;
+            return $this->weight / ($heightInMeters * $heightInMeters);
+        }
+        return null;
+    }
 }
