@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Exercise::factory(20)->create();
         // Kreiranje korisnika
         User::factory(10)->create()->each(function ($user) {
             // Za svakog korisnika kreiramo workout
@@ -28,6 +29,6 @@ class DatabaseSeeder extends Seeder
         });
 
       
-        Exercise::factory(20)->create();
+        
     }
 }
