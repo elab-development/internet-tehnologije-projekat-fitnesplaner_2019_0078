@@ -6,7 +6,7 @@ use App\Http\Resources\ExerciseResource;
 use App\Models\Exercise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use GuzzleHttp\Client;
 class ExerciseController extends Controller
 {  public function index()
     {
@@ -66,4 +66,23 @@ class ExerciseController extends Controller
 
         return response()->json(['message'=>"DELETED"], 204);
     }
+
+    public function getRandomExercises()
+    {
+        $client = new Client();
+
+        try {
+            $response = $client->request('GET', 'https://api.api-ninjas.com/v1/exercises', [
+                'headers' => [
+                    'X-Api-Key' => '7xiJG3ZG/DVXBFQcpnUANw==DCKsOuWEdluVhptV'
+                ]
+            ]);
+
+            $exercises = json_decode($response->getBody(), true);
+            return response()->json($exercises);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    
 }
