@@ -18,17 +18,17 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+
+Route::get('/exercises', [ExerciseController::class, 'index']);
+Route::get('/exercises/getRandomExercises', [ExerciseController::class, 'getRandomExercises']);
+Route::get('/hydration', [HydratationController::class, 'index']); 
 
  
-Route::prefix('exercises')->group(function () {
-    Route::get('/', [ExerciseController::class, 'index']);
-    Route::get('/getRandomExercises', [ExerciseController::class, 'getRandomExercises']);
-    Route::get('/export', [ExerciseController::class, 'export']);
-    Route::post('/', [ExerciseController::class, 'store']);
-    Route::get('/{id}', [ExerciseController::class, 'show']);
-    Route::put('/{id}', [ExerciseController::class, 'update']);
-    Route::delete('/{id}', [ExerciseController::class, 'destroy']);
-   
-}); 
-Route::resource('/hydration',HydratationController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/exercises/export', [ExerciseController::class, 'export']);
+    Route::post('/exercises', [ExerciseController::class, 'store']);
+    Route::put('/exercises/{id}', [ExerciseController::class, 'update']);
+    Route::delete('/exercises/{id}', [ExerciseController::class, 'destroy']);
+    Route::apiResource('/hydration', HydratationController::class)->except(['index', 'show']);
+});
