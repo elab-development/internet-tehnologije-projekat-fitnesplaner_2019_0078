@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExerciseController;
+use App\Http\Controllers\HydratationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+ 
 Route::prefix('exercises')->group(function () {
     Route::get('/', [ExerciseController::class, 'index']);
     Route::post('/', [ExerciseController::class, 'store']);
@@ -25,3 +24,5 @@ Route::prefix('exercises')->group(function () {
     Route::put('/{id}', [ExerciseController::class, 'update']);
     Route::delete('/{id}', [ExerciseController::class, 'destroy']);
 });
+
+Route::resource('/hydration',HydratationController::class);
