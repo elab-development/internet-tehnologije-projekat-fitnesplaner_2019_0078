@@ -20,9 +20,11 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('exercises')->group(function () {
     Route::get('/', [ExerciseController::class, 'index']);
     Route::get('/getRandomExercises', [ExerciseController::class, 'getRandomExercises']);
+    Route::get('/export', [ExerciseController::class, 'export']);
     Route::post('/', [ExerciseController::class, 'store']);
     Route::get('/{id}', [ExerciseController::class, 'show']);
     Route::put('/{id}', [ExerciseController::class, 'update']);
     Route::delete('/{id}', [ExerciseController::class, 'destroy']);
+   
 }); 
 Route::resource('/hydration',HydratationController::class);

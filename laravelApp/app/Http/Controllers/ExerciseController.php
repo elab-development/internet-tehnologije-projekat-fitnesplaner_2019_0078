@@ -7,6 +7,7 @@ use App\Models\Exercise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
 class ExerciseController extends Controller
 {  public function index()
     {
@@ -84,5 +85,31 @@ class ExerciseController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    
+    public function export()
+    {
+        $exercises = Exercise::all();
+        $csvFileName = 'exercises.csv';
+        $csvFilePath = storage_path('app/' . $csvFileName);
+
+        $fileHandle = fopen($csvFilePath, 'w');
+
+      
+        fputcsv($fileHandle, ['ID', 'Name', 'Description', 'Video URL', 'Average Calories Burned', 'Category']);
+
+       
+        foreach ($exercises as $exercise) {
+            fputcsv($fileHandle, [
+                $exercise->id, 
+                $exercise->name, 
+                $exercise->description, 
+                $exercise->video_url, 
+                $exercise->average_calories_burned, 
+                $exercise->category
+            ]);
+        }
+
+        fclose($fileHandle);
+
+        return response()->download($csvFilePath, $csvFileName) ;
+    }
 }
