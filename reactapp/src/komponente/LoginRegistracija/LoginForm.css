@@ -44,7 +44,11 @@
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="date"]
+{
   box-sizing: border-box; 
   width: 90%;
   padding: 15px;
@@ -103,4 +107,18 @@ input[type="checkbox"] {
 
 .forgot-password:hover {
   text-decoration: underline;
+}
+
+.gender-button {
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.gender-button.selected {
+  background-color: #0f9b0f;
+  color: white;
+  border-color: #0f9b0f;
 }
