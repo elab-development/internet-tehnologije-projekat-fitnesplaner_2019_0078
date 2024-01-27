@@ -1,6 +1,7 @@
-import logo from './logo.svg';
+ 
 import './App.css';
-import LoginForm from './komponente/LoginForm';
+import LoginForm from './komponente/LoginRegistracija/LoginForm';
+ 
 
 function App() {
   return (

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';  
 import './LoginForm.css';
+import InputField from './InputField';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -56,14 +57,20 @@ const LoginForm = () => {
         FITNESS LOGIN FORM
       </div>
       <form className="login-form" onSubmit={handleSubmit}>
-        <div className="input-container">
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
-        </div>
-        <div className="input-container">
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
-        </div>
+        <InputField
+            label="Email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Password"
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
         <div className="form-footer">
           <button type="submit" className="login-button">Log In</button>
           <a href="#forgot" className="forgot-password">Forgot Password?</a>
