@@ -24,6 +24,8 @@ Route::get('/exercises/getRandomExercises', [ExerciseController::class, 'getRand
 Route::get('/hydration', [HydratationController::class, 'index']); 
 
  
+
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/exercises/export', [ExerciseController::class, 'export']);

@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 class ExerciseController extends Controller
-{  public function index()
+{  
+    public function index()
     {
         return ExerciseResource::collection(Exercise::all());
     }
