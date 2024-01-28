@@ -4,6 +4,8 @@ import './Vezbe.css';
 
 const Vezbe = () => {
   const [vezbe, setVezbe] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [exercisesPerPage] = useState(5);
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
@@ -20,6 +22,19 @@ const Vezbe = () => {
       });
   }, [token]);
 
+ 
+  const indexOfLastExercise = currentPage * exercisesPerPage;
+  const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
+  const currentExercises = vezbe.slice(indexOfFirstExercise, indexOfLastExercise);
+ 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(vezbe.length / exercisesPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
   return (
     <div className="vezbe-container">
       <h1>Vezbe</h1>
@@ -35,7 +50,7 @@ const Vezbe = () => {
           </tr>
         </thead>
         <tbody>
-          {vezbe.map((vezba) => (
+          {currentExercises.map((vezba) => (
             <tr key={vezba.id}>
               <td>{vezba.id}</td>
               <td>{vezba.name}</td>
@@ -47,6 +62,17 @@ const Vezbe = () => {
           ))}
         </tbody>
       </table>
+      <nav>
+        <ul className='pagination'>
+          {pageNumbers.map(number => (
+            <li key={number} className='page-item'>
+              <button onClick={() => paginate(number)}   className='page-link'>
+                {number}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   );
 };
