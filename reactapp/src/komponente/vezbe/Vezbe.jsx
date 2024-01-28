@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Vezbe.css';
 import useVezbe from '../hooks/useVezbe';
+import ExerciseRow from './ExerciseRow';
 
 const Vezbe = () => {
  
@@ -52,15 +53,8 @@ const Vezbe = () => {
           </tr>
         </thead>
         <tbody>
-          {currentExercises.map((vezba) => (
-            <tr key={vezba.id}>
-              <td>{vezba.id}</td>
-              <td>{vezba.name}</td>
-              <td>{vezba.description}</td>
-              <td>{vezba.video_url}</td>
-              <td>{vezba.average_calories_burned}</td>
-              <td>{vezba.category}</td>
-            </tr>
+         {currentExercises.map((vezba) => (
+            <ExerciseRow key={vezba.id} vezba={vezba} />  
           ))}
         </tbody>
       </table>
