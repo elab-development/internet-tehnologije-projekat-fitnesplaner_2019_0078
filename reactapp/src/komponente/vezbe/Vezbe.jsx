@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Vezbe.css';
+import useVezbe from '../hooks/useVezbe';
 
 const Vezbe = () => {
-  const [vezbe, setVezbe] = useState([]);
+ 
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(5);
   const token = sessionStorage.getItem('token');
 
-  useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/exercises', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        setVezbe(response.data.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [token]);
+//   const [vezbe, setVezbe] = useState([]);
+//   useEffect(() => {
+//     axios.get('http://127.0.0.1:8000/api/exercises', {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     })
+//       .then((response) => {
+//         setVezbe(response.data.data);
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//       });
+//   }, [token]);
 
- 
+  const vezbe = useVezbe('http://127.0.0.1:8000/api/exercises', token);
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
   const currentExercises = vezbe.slice(indexOfFirstExercise, indexOfLastExercise);
