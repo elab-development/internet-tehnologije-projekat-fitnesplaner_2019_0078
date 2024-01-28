@@ -1,0 +1,30 @@
+.vezbe-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .vezbe-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .vezbe-table th,
+  .vezbe-table td {
+    padding: 10px;
+    border: 1px solid #d3f8e2;
+  }
+  
+  .vezbe-table th {
+    background-color: #e4c1f9;
+    color: #fff;
+  }
+  
+  .vezbe-table tr:nth-child(even) {
+    background-color: #c3bf93;
+  }
+  
+  .vezbe-table tr:nth-child(odd) {
+    background-color: #ede7b1;
+  }
+  
