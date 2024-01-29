@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ExerciseRow = ({ vezba }) => {
+const ExerciseRow = ({ vezba, deleteExercise }) => {
   return (
     <tr>
       <td>{vezba.id}</td>
@@ -9,6 +9,9 @@ const ExerciseRow = ({ vezba }) => {
       <td>{vezba.video_url}</td>
       <td>{vezba.average_calories_burned}</td>
       <td>{vezba.category}</td>
+      <td>
+        <button onClick={() => deleteExercise(vezba.id)}>Obriši</button>
+      </td>
     </tr>
   );
 };

@@ -8,30 +8,50 @@ const Vezbe = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(5);
   const [searchTerm, setSearchTerm] = useState('');
-  const token = sessionStorage.getItem('token');
+  const [filteredExercises, setFilteredExercises] = useState([]); // Dodato
+  const token = sessionStorage.getItem('authToken');
   const vezbe = useVezbe('http://127.0.0.1:8000/api/exercises', token);
 
- 
+  useEffect(() => {
+    setFilteredExercises(vezbe);  
+  }, [vezbe]);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-    setCurrentPage(1); // Resetujemo trenutnu stranu nakon pretrage
+    setCurrentPage(1);  
   };
 
-  const filteredExercises = vezbe.filter((vezba) => {
-    const { name, description, video_url, average_calories_burned, category } = vezba;
+  useEffect(() => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const newFilteredExercises = vezbe.filter((vezba) => {
+      const { name, description, video_url, average_calories_burned, category } = vezba;
+      return (
+        name.toLowerCase().includes(lowerCaseSearchTerm) ||
+        description.toLowerCase().includes(lowerCaseSearchTerm) ||
+        video_url.toLowerCase().includes(lowerCaseSearchTerm) ||
+        average_calories_burned.toString().includes(lowerCaseSearchTerm) ||
+        category.toLowerCase().includes(lowerCaseSearchTerm)
+      );
+    });
+    setFilteredExercises(newFilteredExercises);
+  }, [searchTerm, vezbe]);
 
-    return (
-      name.toLowerCase().includes(lowerCaseSearchTerm) ||
-      description.toLowerCase().includes(lowerCaseSearchTerm) ||
-      video_url.toLowerCase().includes(lowerCaseSearchTerm) ||
-      average_calories_burned.toString().includes(lowerCaseSearchTerm) ||
-      category.toLowerCase().includes(lowerCaseSearchTerm)
-    );
-  });
+  const deleteExercise = async (id) => {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/exercises/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const updatedExercises = filteredExercises.filter((vezba) => vezba.id !== id);
+      setFilteredExercises(updatedExercises);
+      alert("Uspesno obrisano!")
+    } catch (error) {
+      console.error("Došlo je do greške prilikom brisanja vežbe", error);
+    }
+  };
 
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(filteredExercises.length / exercisesPerPage); i++) {
@@ -40,6 +60,7 @@ const Vezbe = () => {
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
   const currentExercises = filteredExercises.slice(indexOfFirstExercise, indexOfLastExercise);
+
   return (
     <div className="vezbe-container">
       <h1>Vezbe</h1>
@@ -64,7 +85,7 @@ const Vezbe = () => {
         </thead>
         <tbody>
           {currentExercises.map((vezba) => (
-            <ExerciseRow key={vezba.id} vezba={vezba} />
+            <ExerciseRow key={vezba.id} vezba={vezba} deleteExercise={deleteExercise} />
           ))}
         </tbody>
       </table>
