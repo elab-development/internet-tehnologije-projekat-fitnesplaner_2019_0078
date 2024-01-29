@@ -6,11 +6,13 @@ import RegisterForm from './komponente/LoginRegistracija/RegisterForm';
 import Vezbe from './komponente/vezbe/Vezbe';
 import VezbeApi from './komponente/vezbe/VezbeApi';
 import HomePage from './komponente/HomePage/HomePage';
+import Navbar from './komponente/nav/Navbar';
  
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <Routes>
       <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginForm />} />
