@@ -5,12 +5,14 @@ import LoginForm from './komponente/LoginRegistracija/LoginForm';
 import RegisterForm from './komponente/LoginRegistracija/RegisterForm';
 import Vezbe from './komponente/vezbe/Vezbe';
 import VezbeApi from './komponente/vezbe/VezbeApi';
+import HomePage from './komponente/HomePage/HomePage';
  
 
 function App() {
   return (
     <Router>
       <Routes>
+      <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/vezbe" element={<Vezbe />} />
         <Route path="/vezbeapi" element={<VezbeApi/>} />
