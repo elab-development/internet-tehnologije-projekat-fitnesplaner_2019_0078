@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';  
 import './LoginForm.css';
 import InputField from './InputField';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = ({setToken}) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
-
+  let navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -34,6 +35,7 @@ const LoginForm = ({setToken}) => {
         sessionStorage.setItem('authToken', data.access_token);
         setToken(data.access_token);
         console.log('Login successful');
+        navigate('/vezbe');
       } else {
         console.error('Login failed:', data.message);
       }

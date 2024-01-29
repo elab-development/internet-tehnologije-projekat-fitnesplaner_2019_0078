@@ -3,12 +3,14 @@ import axios from 'axios';
 import './Vezbe.css';
 import useVezbe from '../hooks/useVezbe';
 import ExerciseRow from './ExerciseRow';
+import DodajVezbuModal from './DodajVezbuModal';
 
 const Vezbe = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(5);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredExercises, setFilteredExercises] = useState([]); // Dodato
+  const [filteredExercises, setFilteredExercises] = useState([]);  
+  const [showModal, setShowModal] = useState(false);
   const token = sessionStorage.getItem('authToken');
   const vezbe = useVezbe('http://127.0.0.1:8000/api/exercises', token);
 
@@ -64,6 +66,7 @@ const Vezbe = () => {
   return (
     <div className="vezbe-container">
       <h1>Vezbe</h1>
+      <button onClick={() => setShowModal(true)}>Dodaj Novu Vezbu</button>
       <div className="search-container">
         <input
           type="text"
@@ -81,6 +84,7 @@ const Vezbe = () => {
             <th>Video URL</th>
             <th>Kalorije</th>
             <th>Kategorija</th>
+            <th>Obrisi</th>
           </tr>
         </thead>
         <tbody>
@@ -100,6 +104,7 @@ const Vezbe = () => {
           ))}
         </ul>
       </nav>
+      <DodajVezbuModal show={showModal} handleClose={() => setShowModal(false)} token={token} />
     </div>
   );
 };
