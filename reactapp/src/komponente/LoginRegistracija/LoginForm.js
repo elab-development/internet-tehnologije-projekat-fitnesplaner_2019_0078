@@ -3,7 +3,7 @@ import axios from 'axios';
 import './LoginForm.css';
 import InputField from './InputField';
 
-const LoginForm = () => {
+const LoginForm = ({setToken}) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -32,6 +32,7 @@ const LoginForm = () => {
     
       if (response.status === 200) {
         sessionStorage.setItem('authToken', data.access_token);
+        setToken(data.access_token);
         console.log('Login successful');
       } else {
         console.error('Login failed:', data.message);

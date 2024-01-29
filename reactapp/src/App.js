@@ -7,15 +7,17 @@ import Vezbe from './komponente/vezbe/Vezbe';
 import VezbeApi from './komponente/vezbe/VezbeApi';
 import HomePage from './komponente/HomePage/HomePage';
 import Navbar from './komponente/nav/Navbar';
+import { useState } from 'react';
  
 
 function App() {
+  const [token,setToken]=useState(null);
   return (
     <Router>
-      <Navbar />
+      <Navbar token={token} setToken={setToken}  />
       <Routes>
       <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginForm />} />
+        <Route path="/login" element={<LoginForm setToken={setToken}/>} />
         <Route path="/vezbe" element={<Vezbe />} />
         <Route path="/vezbeapi" element={<VezbeApi/>} />
         <Route path="/register" element={<RegisterForm />} />
