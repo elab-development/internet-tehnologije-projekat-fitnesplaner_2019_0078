@@ -76,7 +76,7 @@ const LoginForm = ({setToken}) => {
           />
         <div className="form-footer">
           <button type="submit" className="login-button">Log In</button>
-          <a href="#forgot" className="forgot-password">Forgot Password?</a>
+          {/* <a href="#forgot" className="forgot-password">Forgot Password?</a> */}
         </div>
       </form>
     </div>

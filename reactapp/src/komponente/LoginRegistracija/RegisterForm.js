@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
-import InputField from './InputField'; // Assuming InputField is already created
+import InputField from './InputField';  
 import GenderSelect from './GenderSelect';
 
 const RegisterForm = () => {
@@ -15,7 +16,7 @@ const RegisterForm = () => {
     fitness_goals: '',
     notes: ''
   });
-
+  let navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -33,7 +34,7 @@ const RegisterForm = () => {
 
       if (response.status === 201) {
         console.log('Registration successful', data);
-        // You can redirect the user or handle the token as needed
+        navigate('/login');
       } else {
         console.error('Registration failed:', data.message);
       }
