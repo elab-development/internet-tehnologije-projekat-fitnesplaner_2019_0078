@@ -1,0 +1,125 @@
+
+ 
+.login-container {
+  max-width: 400px;
+  margin: 5% auto;
+  padding: 50px;
+  background-color: #f7f7f7;  
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  border-radius: 5px;
+  border: 1px solid #ccc;  
+  position: relative; 
+}
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px;
+  right: -2px; bottom: -2px;
+  background: linear-gradient(140deg, #0f9b0f, #58cc02);
+  z-index: -1;
+  border-radius: 6px;  
+}
+
+.login-header {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 34px;
+}
+
+.input-container label {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="date"]
+{
+  box-sizing: border-box; 
+  width: 90%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background: #fff;
+}
+
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.stay-signed-in {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.stay-signed-in label {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.form-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-button {
+  width: 90%;
+  background-color: #ff5722;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #e64a19;
+}
+
+.forgot-password {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.gender-button {
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  color: black;
+}
+
+.gender-button.selected {
+  background-color: #0f9b0f;
+  color: white;
+  border-color: #0f9b0f;
+}
