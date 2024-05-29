@@ -9,20 +9,21 @@ const Vezbe = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(5);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredExercises, setFilteredExercises] = useState([]);  
+  const [filteredExercises, setFilteredExercises] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [exerciseToEdit, setExerciseToEdit] = useState(null);
   const token = sessionStorage.getItem('authToken');
   const vezbe = useVezbe('http://127.0.0.1:8000/api/exercises', token);
 
   useEffect(() => {
-    setFilteredExercises(vezbe);  
+    setFilteredExercises(vezbe);
   }, [vezbe]);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-    setCurrentPage(1);  
+    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -55,6 +56,25 @@ const Vezbe = () => {
     }
   };
 
+  const editExercise = (vezba) => {
+    setExerciseToEdit(vezba);
+    setShowModal(true);
+  };
+
+  const handleExerciseUpdated = (updatedExercise) => {
+    updatedExercise=updatedExercise.data;
+    setFilteredExercises((prevExercises) => {
+      const existingExerciseIndex = prevExercises.findIndex((vezba) => vezba.id === updatedExercise.id);
+      if (existingExerciseIndex !== -1) {
+        const updatedExercises = [...prevExercises];
+        updatedExercises[existingExerciseIndex] = updatedExercise;
+        return updatedExercises;
+      } else {
+        return [...prevExercises, updatedExercise];
+      }
+    });
+  };
+
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(filteredExercises.length / exercisesPerPage); i++) {
     pageNumbers.push(i);
@@ -66,7 +86,7 @@ const Vezbe = () => {
   return (
     <div className="vezbe-container">
       <h1>Vezbe</h1>
-      <button onClick={() => setShowModal(true)}>Dodaj Novu Vezbu</button>
+      <button onClick={() => { setExerciseToEdit(null); setShowModal(true); }}>Dodaj Novu Vezbu</button>
       <div className="search-container">
         <input
           type="text"
@@ -85,11 +105,12 @@ const Vezbe = () => {
             <th>Kalorije</th>
             <th>Kategorija</th>
             <th>Obrisi</th>
+            <th>Ažuriraj</th>
           </tr>
         </thead>
         <tbody>
           {currentExercises.map((vezba) => (
-            <ExerciseRow key={vezba.id} vezba={vezba} deleteExercise={deleteExercise} />
+            <ExerciseRow key={vezba.id} vezba={vezba} deleteExercise={deleteExercise} editExercise={editExercise} />
           ))}
         </tbody>
       </table>
@@ -104,7 +125,7 @@ const Vezbe = () => {
           ))}
         </ul>
       </nav>
-      <DodajVezbuModal show={showModal} handleClose={() => setShowModal(false)} token={token} />
+      <DodajVezbuModal show={showModal} handleClose={() => setShowModal(false)} token={token} exerciseToEdit={exerciseToEdit} onExerciseUpdated={handleExerciseUpdated} />
     </div>
   );
 };

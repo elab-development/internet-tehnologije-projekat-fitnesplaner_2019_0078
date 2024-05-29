@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
-const ExerciseRow = ({ vezba, deleteExercise }) => {
+const ExerciseRow = ({ vezba, deleteExercise,editExercise }) => {
   return (
     <tr>
       <td>{vezba.id}</td>
@@ -12,6 +12,9 @@ const ExerciseRow = ({ vezba, deleteExercise }) => {
       <td>{vezba.category}</td>
       <td>
         <button onClick={() => deleteExercise(vezba.id)}><FaRegTrashAlt /></button>
+      </td>
+      <td>
+        <button onClick={() => editExercise(vezba)}>Ažuriraj</button>
       </td>
     </tr>
   );
