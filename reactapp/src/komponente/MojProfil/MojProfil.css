@@ -30,6 +30,20 @@
     color: #333;
 }
 
+.hydrations-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.hydrations-list li {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
 /* Dodati stilove iz trenutne aplikacije */
 .vezbe-container {
     text-align: center;
