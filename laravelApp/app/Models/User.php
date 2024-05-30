@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'password', 'height', 'weight', 'gender', 'date_of_birth', 'fitness_goals', 'notes',
+        'name', 'email', 'password', 'height', 'weight', 'gender', 'date_of_birth', 'fitness_goals', 'notes','role'
     ];
 
     /**
@@ -47,5 +47,13 @@ class User extends Authenticatable
             return $this->weight / ($heightInMeters * $heightInMeters);
         }
         return null;
+    }
+    public function hydrations()
+    {
+        return $this->hasMany(Hydration::class);
+    }
+    public function workouts()
+    {
+        return $this->hasMany(Workout::class);
     }
 }

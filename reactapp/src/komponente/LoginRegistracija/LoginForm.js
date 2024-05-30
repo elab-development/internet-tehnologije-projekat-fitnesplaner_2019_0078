@@ -35,7 +35,13 @@ const LoginForm = ({setToken}) => {
         sessionStorage.setItem('authToken', data.access_token);
         setToken(data.access_token);
         console.log('Login successful');
-        navigate('/vezbe');
+        if(data.user.admin==1){
+          navigate('/admin/vezbe');
+
+        }else{
+          navigate('/mojprofil');
+
+        }
       } else {
         console.error('Login failed:', data.message);
       }

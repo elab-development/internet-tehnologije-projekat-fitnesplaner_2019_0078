@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
+use App\Models\Hydration;
 use App\Models\User;
+use App\Models\Workout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -69,7 +72,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'user' => $user,
+            'user' => new UserResource($user),
         ]);
     }
 
@@ -80,6 +83,24 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'You have been successfully logged out'], 200);
     }
+
+
+    public function getUser()
+    {
+        $user = Auth::user();
+
+        // Dohvati sve povezane podatke u jednom upitu koristeći Eager Loading
+        $user->load([
+            'hydrations', 
+           // 'workouts.exercises'
+        ]);
+
+        return response()->json([
+            'user' => $user,
+            'hydrations' => $user->hydrations,
+           // 'workouts' => $user->workouts
+        ]);
+    } 
 
 
 }
