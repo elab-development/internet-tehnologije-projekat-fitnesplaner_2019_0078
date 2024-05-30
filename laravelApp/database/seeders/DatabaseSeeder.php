@@ -21,7 +21,13 @@ class DatabaseSeeder extends Seeder
     {
         Exercise::factory(20)->create();
         // Kreiranje korisnika
-        User::factory(10)->create()->each(function ($user) {
+        User::factory(10)->create()->each(function ($user, $index) {
+            // Za prvih 3 korisnika postavljamo admin status na 1
+            if ($index < 3) {
+                $user->admin = 1;
+                $user->save();
+            }
+
             // Za svakog korisnika kreiramo workout
             Workout::factory(3)->create(['user_id' => $user->id]);
             // Za svakog korisnika kreiramo hydration record
