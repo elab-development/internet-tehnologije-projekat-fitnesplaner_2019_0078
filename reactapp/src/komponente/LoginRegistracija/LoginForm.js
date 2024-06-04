@@ -37,10 +37,11 @@ const LoginForm = ({setToken}) => {
         console.log('Login successful');
         if(data.user.admin==1){
           navigate('/admin/vezbe');
+          sessionStorage.setItem('admin', 1);
 
         }else{
           navigate('/mojprofil');
-
+          sessionStorage.setItem('admin', 0);
         }
       } else {
         console.error('Login failed:', data.message);

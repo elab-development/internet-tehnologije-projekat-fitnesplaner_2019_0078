@@ -10,6 +10,7 @@ import Navbar from './komponente/nav/Navbar';
 import { useState } from 'react';
 import MojProfil from './komponente/MojProfil/MojProfil';
 import FoodTracker from './komponente/FoodTracker/FoodTracker';
+import WorkoutScheduler from './komponente/WorkoutScheduler/WorkoutScheduler';
  
 
 function App() {
@@ -26,9 +27,11 @@ function App() {
         <Route path="/vezbeapi" element={<VezbeApi/>} />
 
 
+
+         {/*dodato za seminarski*/}
         <Route path="/mojprofil" element={<MojProfil />} />
         <Route path="/foodtracker" element={<FoodTracker />} />
-
+        <Route path="/vezbe" element={<WorkoutScheduler />} />
 
       </Routes>
     </Router>

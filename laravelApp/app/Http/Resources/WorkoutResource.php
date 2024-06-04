@@ -16,14 +16,29 @@ class WorkoutResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => $this->user,
+            'user_id' => $this->user_id,
             'date' => $this->date,
             'type' => $this->type,
             'duration' => $this->duration,
             'intensity' => $this->intensity,
             'calories_burned' => $this->calories_burned,
-            'notes' => $this->notes, 
-            'exercises' => ExerciseResource::collection($this->whenLoaded('exercises'))
+            'notes' => $this->notes,
+            'exercises' => $this->exercises->map(function ($exercise) {
+                return [
+                    'id' => $exercise->id,
+                    'name' => $exercise->name,
+                    'description' => $exercise->description,
+                    'video_url' => $exercise->video_url,
+                    'average_calories_burned' => $exercise->average_calories_burned,
+                    'category' => $exercise->category,
+                    'pivot' => [
+                        'repetitions' => $exercise->pivot->repetitions,
+                        'sets' => $exercise->pivot->sets,
+                        'weight' => $exercise->pivot->weight,
+                        'rest' => $exercise->pivot->rest
+                    ]
+                ];
+            }),
         ];
     }
 }

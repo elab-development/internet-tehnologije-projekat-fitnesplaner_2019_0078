@@ -1,0 +1,99 @@
+.workout-scheduler {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.workout-scheduler h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.workout-scheduler form div {
+    margin-bottom: 15px;
+}
+
+.workout-scheduler label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.workout-scheduler input,
+.workout-scheduler select,
+.workout-scheduler textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.exercise-input {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.exercise-input select,
+.exercise-input input {
+    flex: 1;
+    min-width: 100px;
+}
+
+.exercise-input button {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.exercise-input button:hover {
+    background-color: #c0392b;
+}
+
+.workout-scheduler button[type="submit"],
+.workout-scheduler button[type="button"] {
+    padding: 10px 20px;
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.workout-scheduler button[type="submit"]:hover,
+.workout-scheduler button[type="button"]:hover {
+    background-color: #27ae60;
+}
+
+.workout-table,
+.exercise-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.workout-table th,
+.workout-table td,
+.exercise-table th,
+.exercise-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.workout-table th,
+.exercise-table th {
+    background-color: #f2f2f2;
+}
+
+.exercise-table {
+    margin-top: 10px;
+}

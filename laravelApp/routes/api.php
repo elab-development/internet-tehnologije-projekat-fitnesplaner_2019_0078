@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExerciseController; 
 use App\Http\Controllers\HydratationController;
+use App\Http\Controllers\WorkoutController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ Route::get('/hydration', [HydratationController::class, 'index']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('workouts', WorkoutController::class);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/exercises/export', [ExerciseController::class, 'export']);
     Route::post('/exercises', [ExerciseController::class, 'store']);
