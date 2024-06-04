@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAppleAlt, faBurn, faDrumstickBite, faBreadSlice, faSeedling, faWeight, faTags } from '@fortawesome/free-solid-svg-icons';
+import { Pie, Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
+
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
 const FoodTracker = () => {
     const [foods, setFoods] = useState([]);
@@ -56,6 +60,33 @@ const FoodTracker = () => {
     };
 
     const totalCalories = foods.reduce((total, food) => total + parseInt(food.calories), 0);
+    const totalProteins = foods.reduce((total, food) => total + parseFloat(food.proteins), 0);
+    const totalCarbohydrates = foods.reduce((total, food) => total + parseFloat(food.carbohydrates), 0);
+    const totalFats = foods.reduce((total, food) => total + parseFloat(food.fats), 0);
+    const remainingCalories = Math.max(recommendedCalories - totalCalories, 0);
+
+    const pieData = {
+        labels: ['Calories Consumed', 'Remaining Calories'],
+        datasets: [
+            {
+                data: [totalCalories, remainingCalories],
+                backgroundColor: ['#FF6384', '#36A2EB'],
+                hoverBackgroundColor: ['#FF6384', '#36A2EB'],
+            },
+        ],
+    };
+
+    const barData = {
+        labels: ['Proteins', 'Carbohydrates', 'Fats'],
+        datasets: [
+            {
+                label: 'Nutrients (g)',
+                data: [totalProteins, totalCarbohydrates, totalFats],
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+            },
+        ],
+    };
 
     const styles = {
         profileContainer: {
@@ -136,18 +167,16 @@ const FoodTracker = () => {
             backgroundColor: '#d3f8e2',
             color: '#333'
         },
-        progressBar: {
-            width: '100%',
-            backgroundColor: '#e0e0df',
-            borderRadius: '13px',
-            overflow: 'hidden',
-            margin: '20px 0'
+        chartContainer: {
+            display: 'flex',
+            justifyContent: 'space-around',
+            marginTop: '20px'
         },
-        progress: {
-            height: '20px',
-            backgroundColor: '#76c7c0',
-            width: '0',
-            transition: 'width 0.3s ease-in-out'
+        pieChart: {
+            width: '45%'
+        },
+        barChart: {
+            width: '45%'
         },
         submitButton: {
             display: 'inline-block',
@@ -169,10 +198,13 @@ const FoodTracker = () => {
         <div style={styles.profileContainer}>
             <h2>Food Tracker</h2>
             <h3>Total Calories Today: {totalCalories}</h3>
-            <div style={styles.progressBar}>
-                <div
-                    style={{ ...styles.progress, width: `${(totalCalories / recommendedCalories) * 100}%` }}
-                ></div>
+            <div style={styles.chartContainer}>
+                <div style={styles.pieChart}>
+                    <Pie data={pieData} />
+                </div>
+                <div style={styles.barChart}>
+                    <Bar data={barData} />
+                </div>
             </div>
 
             <table style={styles.foodTable}>
@@ -202,16 +234,12 @@ const FoodTracker = () => {
                                 <button
                                     onClick={() => handleEdit(index)}
                                     style={styles.editButton}
-                                    onMouseOver={(e) => (e.currentTarget.style = styles.buttonHover)}
-                                    onMouseOut={(e) => (e.currentTarget.style = styles.editButton)}
                                 >
                                     Edit
                                 </button>
                                 <button
                                     onClick={() => handleDelete(index)}
                                     style={styles.deleteButton}
-                                    onMouseOver={(e) => (e.currentTarget.style = styles.buttonHover)}
-                                    onMouseOut={(e) => (e.currentTarget.style = styles.deleteButton)}
                                 >
                                     Delete
                                 </button>

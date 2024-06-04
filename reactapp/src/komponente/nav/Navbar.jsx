@@ -40,8 +40,14 @@ function Navbar({ token, setToken }) {
         )}
         {token !== null && (
           <>
+           <li className="nav-item">
+              <Link to="/mojprofil" className="nav-link">Moj profil</Link>
+            </li>
             <li className="nav-item">
               <Link to="/vezbe" className="nav-link">Vežbe</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/foodtracker" className="nav-link">Hrana</Link>
             </li>
             <li className="nav-item">
               <button onClick={handleLogout} className="nav-link">Logout</button>
