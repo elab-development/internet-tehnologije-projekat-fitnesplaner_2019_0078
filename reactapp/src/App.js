@@ -9,6 +9,7 @@ import HomePage from './komponente/HomePage/HomePage';
 import Navbar from './komponente/nav/Navbar';
 import { useState } from 'react';
 import MojProfil from './komponente/MojProfil/MojProfil';
+import FoodTracker from './komponente/FoodTracker/FoodTracker';
  
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
 
 
         <Route path="/mojprofil" element={<MojProfil />} />
+        <Route path="/foodtracker" element={<FoodTracker />} />
+
 
       </Routes>
     </Router>

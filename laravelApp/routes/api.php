@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ExerciseController;
+use App\Http\Controllers\ExerciseController; 
 use App\Http\Controllers\HydratationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,8 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/exercises/{id}', [ExerciseController::class, 'update']);
     Route::delete('/exercises/{id}', [ExerciseController::class, 'destroy']);
     Route::apiResource('/hydration', HydratationController::class)->except(['index', 'show']);
-
-
+ 
     //dodato za seminarski, metoda koja vraca sve moguce podatke o ulogovanom korisniku
     Route::get('/user', [AuthController::class, 'getUser']);
 });

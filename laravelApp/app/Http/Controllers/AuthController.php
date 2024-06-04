@@ -89,11 +89,7 @@ class AuthController extends Controller
     {
         $user = Auth::user();
 
-        // Dohvati sve povezane podatke u jednom upitu koristeći Eager Loading
-        $user->load([
-            'hydrations', 
-           // 'workouts.exercises'
-        ]);
+      
 
         return response()->json([
             'user' => $user,
