@@ -18,41 +18,40 @@ function Navbar({ token, setToken }) {
       console.error('Greška prilikom odjave:', error);
     }
   };
-
+  const isAdmin = sessionStorage.getItem('admin') === '1';
   return (
     <nav className="navbar">
       <ul className="nav-list">
         <li className="nav-item">
-          <Link to="/" className="nav-link">Početna</Link>
+          <Link to="/" className="nav-link">Home</Link>
         </li>
-        {token === null && (
-          <>
+        {token ? (
+          isAdmin ? (
             <li className="nav-item">
-              <Link to="/login" className="nav-link">Login</Link>
+              <Link to="/admin/vezbe" className="nav-link">Admin Vežbe</Link>
             </li>
-            <li className="nav-item">
-              <Link to="/register" className="nav-link">Registracija</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/vezbeapi" className="nav-link">Vežbe API</Link>
-            </li>
-          </>
+          ) : (
+            <>
+              <li className="nav-item">
+                <Link to="/mojprofil" className="nav-link">Moj profil</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/vezbe" className="nav-link">Vežbe</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/foodtracker" className="nav-link">Hrana</Link>
+              </li>
+            </>
+          )
+        ) : (
+          <li className="nav-item">
+            <Link to="/login" className="nav-link">Login</Link>
+          </li>
         )}
-        {token !== null && (
-          <>
-           <li className="nav-item">
-              <Link to="/mojprofil" className="nav-link">Moj profil</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/vezbe" className="nav-link">Vežbe</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/foodtracker" className="nav-link">Hrana</Link>
-            </li>
-            <li className="nav-item">
-              <button onClick={handleLogout} className="nav-link">Logout</button>
-            </li>
-          </>
+        {token && (
+          <li className="nav-item">
+            <button onClick={handleLogout} className="nav-link logout-button">Logout</button>
+          </li>
         )}
       </ul>
     </nav>
