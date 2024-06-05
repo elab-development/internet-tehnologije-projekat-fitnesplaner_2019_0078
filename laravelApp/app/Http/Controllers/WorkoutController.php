@@ -12,14 +12,19 @@ class WorkoutController extends Controller
 {
     public function index()
     {
-        $workouts = Workout::with('exercises')->get();
-        return WorkoutResource::collection($workouts);
+       // Dobavljanje ID-a ulogovanog korisnika
+            $userId = auth()->id();
+
+            // Dobavljanje svih treninga za ulogovanog korisnika zajedno sa vezbama
+            $workouts = Workout::with('exercises')->where('user_id', $userId)->get();
+
+            // Vraćanje kolekcije treninga kao WorkoutResource
+            return WorkoutResource::collection($workouts);
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
+        $validator = Validator::make($request->all(), [ 
             'date' => 'required|date',
             'type' => 'required|string|max:255',
             'duration' => 'required|integer',
@@ -38,7 +43,9 @@ class WorkoutController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $workout = Workout::create($validator->validated());
+        $workout = Workout::create(array_merge($validator->validated(), [
+            'user_id' => auth()->id(),
+        ]));
 
         foreach ($request->selectedExercises as $exercise) {
             $workout->exercises()->attach($exercise['exercise_id'], [

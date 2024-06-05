@@ -36,7 +36,9 @@ const FoodTracker = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setFoods([...foods, formData]);
+        const updatedFoods = [...foods, formData];
+        setFoods(updatedFoods);
+        localStorage.setItem('foods', JSON.stringify(updatedFoods));
         setFormData({
             name: '',
             calories: '',
